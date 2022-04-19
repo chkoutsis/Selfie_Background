@@ -13,14 +13,14 @@ with mp_selfie.SelfieSegmentation(model_selection=0) as model:
         res = model.process(frame)
         mask = np.stack((res.segmentation_mask,)*3, axis=-1) > 0.8 
         
-        #if i want to use blur as a background
+        #for using blur as a background
         segmented_image = np.where(mask, frame, cv2.blur(frame, (40,40)))  
         
-        #if i want to use background colour (not blur)
+        #for using background colour (not blur)
         background = np.zeros(frame.shape, np.uint8)
         background[:] = (255,0,0)   #colour
         
-        #if i want to use image as a background
+        #for using image as a background
         path = '/the path of the background picture'
         img = cv2.imread(path)
         img= cv2.resize(img, (640,480))
